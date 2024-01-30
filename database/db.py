@@ -1,36 +1,34 @@
+# SQLite3 Connection file
 import sqlite3
 
 
 class SqlDB:
-    def __init__(self):
-        # Инициализация базовых значений
+    def __init__(self):  # Initialization of base fields
         self._connection = sqlite3.connect('db.sqlite3')
         self._cursor = self._connection.cursor()
 
-    # Создание/Получение таблицы
-    def create_table(self):
-        # Создаем таблицу Users
+    def create_table(self):  # Create or get table
         self._cursor.execute("""
             CREATE TABLE IF NOT EXISTS Users (
-            id INTEGER PRIMARY KEY,
-            user_id TEXT NOT NULL,
-            location TEXT NULL DEFAULT NUll,
-            feedback TEXT NULL DEFAULT NUll,
-            comment TEXT NULL DEFAULT NUll,
-            photo TEXT NULL DEFAULT NUll)
+                id INTEGER PRIMARY KEY,
+                user_id TEXT NOT NULL,
+                location TEXT NULL DEFAULT NULL,
+                feedback TEXT NULL DEFAULT NULL,
+                comment TEXT NULL DEFAULT NULL,
+                photo TEXT NULL DEFAULT NULL,
+                openai_response TEXT NULL DEFAULT NULL
+            );
             """)
 
-    # Добавление в базу
-    def add_to_database(self, user_id, location, feedback, comment, photo):
+    # Add fields to database
+    def add_to_database(self, user_id, location, feedback, comment, photo, openai_response):
         self._cursor.execute(
-            'INSERT INTO Users (user_id, location, feedback, comment, photo) VALUES (?, ?, ?, ?, ?)',
-            (user_id, location, feedback, comment, photo))
+            'INSERT INTO Users (user_id, location, feedback, comment, photo) VALUES (?, ?, ?, ?, ?, ?)',
+            (user_id, location, feedback, comment, photo, openai_response))
         self._commit()
 
-    # Сохраняем изменения
-    def _commit(self):
+    def _commit(self):  # Save changes
         self._connection.commit()
 
-    # Закрываем соединение
-    def close_connection(self):
+    def close_connection(self):  # Close sql connection
         self._connection.close()

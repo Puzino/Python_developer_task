@@ -1,3 +1,4 @@
+# Keyboards file
 from aiogram import types
 
 
@@ -8,7 +9,7 @@ def start_keyboard():
     return start_kb
 
 
-def markup_menu_locations():
+def keyboard_menu_locations():
     markup = types.reply_keyboard.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
     location_1 = types.KeyboardButton(text="Локація 1")
     location_2 = types.KeyboardButton(text="Локація 2")
@@ -19,12 +20,12 @@ def markup_menu_locations():
     return markup
 
 
-def markup_check_list():
+def keyboard_check_list():
     markup = types.reply_keyboard.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
     btn1 = types.KeyboardButton(text='Дуже задоволенний!')
     btn2 = types.KeyboardButton(text='Все чисто')
-    btn3 = types.KeyboardButton(text='Посередньо')
-    btn4 = types.KeyboardButton(text='Погано')
+    btn3 = types.KeyboardButton(text='Сподобалось')
+    btn4 = types.KeyboardButton(text='Так собі..')
     btn5 = types.KeyboardButton(text='Не рекомендую')
     markup.add(btn1, btn2, btn3, btn4, btn5)
     return markup
