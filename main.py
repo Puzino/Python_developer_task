@@ -6,9 +6,10 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
-from api_openai import api
-
 import keyboards as kb
+from api_openai import api
+from database import db
+from utils import clean_state
 
 BOT_TOKEN = os.getenv('KEY_BOT')
 
@@ -79,10 +80,15 @@ async def add_photo(message: types.Message, state: FSMContext) -> None:
         data['photo'] = message.photo[0].file_id
 
     await message.answer('Відгук залишено!')
-    text = await api.openai_query(state)
+    clean_data = await clean_state(state)
+    text = await api.openai_query(clean_data)
     await state.finish()
     await message.answer('Аналіз вашого відгуку.')
     await message.answer(text=text)
+    database_sql = db.SqlDB()
+    database_sql.create_table()
+    database_sql.add_to_database(user_id=message.from_user.id, **clean_data)
+    database_sql.close_connection()
 
 
 @dp.message_handler()

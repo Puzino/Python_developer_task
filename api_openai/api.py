@@ -5,10 +5,7 @@ from openai import OpenAI
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 
-async def openai_query(state):
-    async with state.proxy() as session:
-        response = session
-
+async def openai_query(response):
     prompt = (
         "Тебе звати 'Бот помічник' представляйся в кожному повідомленні. "
         "Ти дуже досвідченний аналітик, потрібно відповісти на відзив людини "
