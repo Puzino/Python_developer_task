@@ -17,9 +17,8 @@ class SqlDB:
             location TEXT NULL DEFAULT NUll,
             feedback TEXT NULL DEFAULT NUll,
             comment TEXT NULL DEFAULT NUll,
-            photo TEXT NULL DEFAULT NUll 
-            )
-        """)
+            photo TEXT NULL DEFAULT NUll)
+            """)
 
     # Добавление в базу
     def add_to_database(self, user_id, location, feedback, comment, photo):
